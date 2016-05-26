@@ -1,0 +1,16 @@
+<launch>
+<group ns="srf_serial">
+  <node pkg="srf08_serial" type="srf08_serial_node" name="sensor" output="screen" 
+  > <!--launch-prefix="gdbserver localhost:10000" -->
+	<param name="serial_device" type="string" value="/dev/ttyUSB_i2c"/>
+	<param name="update_frequency" value="41"/>  
+   	<param name="sensor_type" type="string" value="srf02"/> 
+   	<param name="i2c_address" type="string" value="0xe0"/>
+  	<!-- Uncomment and start node once in order to change the address, 
+   	do not forget to change to configuration afterwards -->
+   	<!-- <param name="change_to_i2c_address" type="string" value="0xe2"/> -->
+   	<param name="enable_median_filter" value="true"/> 
+   	<param name="low_pass_smoothing" value="0.8"/>    
+  </node> 
+</group>
+</launch>
