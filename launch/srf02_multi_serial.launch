@@ -1,37 +1,37 @@
 <launch>
 <group ns="srf_serial_multi">
-  <node pkg="srf08_serial" type="srf08_serial_node" name="sensor" output="screen" 
+  <node pkg="srf_serial" type="srf_serial_node" name="sensor" output="screen" 
   > <!--launch-prefix="gdbserver localhost:10000" -->
 	<param name="serial_device" type="string" value="/dev/ttyUSB_iss"/>
-	<param name="update_frequency" value="20"/>        
+	<param name="update_frequency" value="20"/>
   </node>
   <group ns="sonar0">
-	<param name="name" type="string" value="ground"/> 
-    <param name="sensor_type" type="string" value="srf02"/> 
+	<param name="name" type="string" value="ground"/>
+    <param name="sensor_type" type="string" value="srf02"/>
     <param name="i2c_address" type="string" value="0xe0"/>
-    <param name="enable_median_filter" value="true"/> 
+    <param name="enable_median_filter" value="true"/>
     <param name="low_pass_smoothing" value="0.8"/>
-  </group>  
+  </group>
   <group ns="sonar1">
-	<param name="name" type="string" value="top"/> 
-    <param name="sensor_type" type="string" value="srf02"/> 
+	<param name="name" type="string" value="top"/>
+    <param name="sensor_type" type="string" value="srf02"/>
     <param name="i2c_address" type="string" value="0xe2"/>
-    <param name="enable_median_filter" value="true"/> 
+    <param name="enable_median_filter" value="true"/>
     <param name="low_pass_smoothing" value="0.8"/>
   </group>
   <group ns="sonar2">
-	<param name="name" type="string" value="left"/> 
-    <param name="sensor_type" type="string" value="srf02"/> 
+	<param name="name" type="string" value="left"/>
+    <param name="sensor_type" type="string" value="srf02"/>
     <param name="i2c_address" type="string" value="0xe4"/>
-    <param name="enable_median_filter" value="true"/> 
+    <param name="enable_median_filter" value="true"/>
     <param name="low_pass_smoothing" value="0.8"/>
   </group>
   <group ns="sonar3">
-	<param name="name" type="string" value="right"/> 
-    <param name="sensor_type" type="string" value="srf02"/> 
+	<param name="name" type="string" value="right"/>
+    <param name="sensor_type" type="string" value="srf02"/>
     <param name="i2c_address" type="string" value="0xe6"/>
-    <param name="enable_median_filter" value="true"/> 
+    <param name="enable_median_filter" value="true"/>
     <param name="low_pass_smoothing" value="0.8"/>
-  </group>     
+  </group>
 </group>
 </launch>
