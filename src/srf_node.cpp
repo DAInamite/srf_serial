@@ -17,9 +17,9 @@
 #define I2C_USB 0x5A // A range of commands to the USB-I2C module, generally to improve selected communications or provide analogue/digital I/O
 
 // SRF08 Datasheet http://www.cs.york.ac.uk/micromouse/Docs/SRF08UltraSonicRanger.pdf
-#define SRF08_VERSION_AND_COMMAND_REGISTER  	0x00
+#define SRF_VERSION_AND_COMMAND_REGISTER  	0x00
 #define SRF08_LIGHT_AND_GAIN_REGISTER  		0x01
-#define SRF08_RANGE_REGISTER  		        0x02
+#define SRF_RANGE_REGISTER  		        0x02
 
 #define SRF08_DEFAULT_I2C_ADDRESS		0xe0
 #define SRF02_DEFAULT_I2C_ADDRESS               0xe0
@@ -54,7 +54,7 @@ public:
   {
     uint8_t version = 0xff;
 
-    readCommand(I2C_AD1, i2c_address_, SRF08_VERSION_AND_COMMAND_REGISTER, &version, 1);
+    readCommand(I2C_AD1, i2c_address_, SRF_VERSION_AND_COMMAND_REGISTER, &version, 1);
     if(version == 0xff)
     {
       string err_msg("Could not determine sonar version");
@@ -87,10 +87,10 @@ public:
     try
     {
       //write following command order for changing the address to register 0x00 : 0xA0 , 0xAA, 0xA5
-      writeCommand(I2C_AD1, i2c_address_, SRF08_VERSION_AND_COMMAND_REGISTER, 0xA0);
-      writeCommand(I2C_AD1, i2c_address_, SRF08_VERSION_AND_COMMAND_REGISTER, 0xAA);
-      writeCommand(I2C_AD1, i2c_address_, SRF08_VERSION_AND_COMMAND_REGISTER, 0xA5);
-      writeCommand(I2C_AD1, i2c_address_, SRF08_VERSION_AND_COMMAND_REGISTER, new_address);
+      writeCommand(I2C_AD1, i2c_address_, SRF_VERSION_AND_COMMAND_REGISTER, 0xA0);
+      writeCommand(I2C_AD1, i2c_address_, SRF_VERSION_AND_COMMAND_REGISTER, 0xAA);
+      writeCommand(I2C_AD1, i2c_address_, SRF_VERSION_AND_COMMAND_REGISTER, 0xA5);
+      writeCommand(I2C_AD1, i2c_address_, SRF_VERSION_AND_COMMAND_REGISTER, new_address);
 
       i2c_address_ = new_address;
 
@@ -116,7 +116,7 @@ public:
       try
       {
         //request ranging
-        writeCommand(I2C_AD1, i2c_address_, SRF08_VERSION_AND_COMMAND_REGISTER, unit);
+        writeCommand(I2C_AD1, i2c_address_, SRF_VERSION_AND_COMMAND_REGISTER, unit);
         return true;
       }
       catch (...)
@@ -137,7 +137,7 @@ public:
       {
         //request result distance and light
         uint8_t buffer[4] = {0};
-        readCommand(I2C_AD1, i2c_address_, SRF08_VERSION_AND_COMMAND_REGISTER, buffer, sizeof(buffer));
+        readCommand(I2C_AD1, i2c_address_, SRF_VERSION_AND_COMMAND_REGISTER, buffer, sizeof(buffer));
 
         version = buffer[0];
         light = buffer[1];
@@ -230,7 +230,7 @@ public:
     //lower amp => less echoes
     writeCommand(I2C_AD1, i2c_address, SRF08_LIGHT_AND_GAIN_REGISTER, amplification); // amplification of 0x11 works good
     //max range = 6m = 0x8c
-    writeCommand(I2C_AD1, i2c_address, SRF08_RANGE_REGISTER, 0x8C);
+    writeCommand(I2C_AD1, i2c_address, SRF_RANGE_REGISTER, 0x8C);
   }
 
 };
@@ -301,7 +301,7 @@ public:
 
     ros::Time now = ros::Time::now();
 
-    bool rc = sensor-> requestRanging(UNIT_CM);
+    bool rc = sensor->requestRanging(UNIT_CM);
 
     if(rc){
       rc = sensor->updateMeasurement(light, distance);
